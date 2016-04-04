@@ -86,6 +86,7 @@ endfunction
 function! PHPUnitRun()
   let testFile = GetMyTestFile()
   if !filereadable(testFile)
+    echo 'Test File for [' . testFile . '] not exists'
     return
   endif
 
