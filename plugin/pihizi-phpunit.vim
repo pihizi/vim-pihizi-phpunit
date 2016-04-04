@@ -100,8 +100,16 @@ endfunction
 function! PHPUnitSwitch()
   if match(expand('%:p'), 'tests\/unit') != -1
       let file = GetMyClassFile()
+      if !filereadable(file)
+          echo 'Class File for [' . expand('%:p') . '] not exists'
+          return
+      endif
   else
       let file = GetMyTestFile()
+      if !filereadable(file)
+          echo 'Test File for [' . expand('%:p') . '] not exists'
+          return
+      endif
   endif
   execute 'to vsplit ' . file
 endfunction
