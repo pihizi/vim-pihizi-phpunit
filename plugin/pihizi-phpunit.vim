@@ -63,7 +63,7 @@ endfunction
 
 function! GetMyTestFile()
   let currentFileFullPath = expand('%:p')
-  if match(currentFileFullPath, 'tests\/unit') != -1
+  if match(currentFileFullPath, 'tests') != -1
       return currentFileFullPath
   endif
 
@@ -77,6 +77,10 @@ function! GetMyTestFile()
       let dirLists = dirLists[0:-2]
       let dirPath = '/' . join(dirLists, '/')
       let testFileFullPath = dirPath . '/tests/unit/' . join(testLists, '/')
+      if filereadable(testFileFullPath)
+          return testFileFullPath
+      endif
+      let testFileFullPath = dirPath . '/tests/' . join(testLists, '/')
       if filereadable(testFileFullPath)
           return testFileFullPath
       endif
